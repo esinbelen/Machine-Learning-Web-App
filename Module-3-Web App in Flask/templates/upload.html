@@ -11,7 +11,7 @@
     </ul>
 
     <!-- tab panes-->
-    <div class="tab-conetnt">
+    <div class="tab-content">
         <div class="tab-pane active" id="upload-image" role="tab-panel" aria-labelledby="">
             <div class="row">
                 <div class="col">
@@ -27,8 +27,7 @@
                         </p>
 
                         <p align="center"> <strong>Instruction:</strong> <br>
-                            Only upload the file with extension ".png", ".jpg", ".jpeg"
-                            For other image eztension you will <strong>redirect</strong> to error 404 page 
+                            Only upload the file with extension ".png", ".jpg", ".jpeg"    
                         </p>
 
                     </form>
@@ -39,12 +38,67 @@
     </div>
 </div>
 
+<br>
+<br>
+
+{% if fileupload %}
+<div class="container">
+    <div class="row">
+        <div class="col col-8">
+        <table>
+            <tr>
+                <th>Label</th>
+                <th>Confidence Score</th>
+
+            </tr>
+            {% for name,score in data.items() %}
+                <tr>
+                    <td>{{ name }}</td>
+                    <td>{{ score }}</td>
+                </tr>
+
+            {% endfor %}
+            </table>
+        </div>
+        <div class="col col-4">
+            <img src="/static/upload/{{ image_filename }}" alt="uploaded image" width=300 height={{ height }}>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% if extension %}
+    <div class="conainer" id="myrow_result">
+        <div class="row">
+        <p>Invalid extension of the image</p>
+        <p>Make sure the image extension is of following ".png", ".jpg", ".jpeg"</p>
+        </div>
+    </div>
+
+{% endif %}
+
 <style>
-    #myrow{
+    #myrow {
         background-color: #DDE2EE;
 
     }
 
+    #myrow_result {
+        background-color: #DDE2EE;
+        padding: 5%;
+        align-content: center;
+
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+
+    }
+    table, th, td {
+        border: 1px solid black;
+
+    }
 </style>
 
 {% endblock body %}
